@@ -32,6 +32,8 @@ const App = () => {
             <code>version</code>
             <br />
             <Example href="/types/package/got@11.0.0" />
+            <br />
+            <Example href="/types/package/@gadgetinc/react@0.18.2" />
           </li>
           <li>
             <code>GET /types/group?packages=&lt;package&gt;@&lt;version&gt;,&lt;package&gt;@&lt;version&gt;</code> - Get all the types for a
