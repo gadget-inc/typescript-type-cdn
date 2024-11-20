@@ -1,31 +1,29 @@
-import path from "path";
-import type { Readable } from "stream";
+import type { Client } from "@gadget-client/typescript-type-cdn";
+import HttpAgent from "agentkeepalive";
+import getNPMTarballURL from "get-npm-tarball-url";
+import getStream from "get-stream";
 import got from "got";
 import gunzip from "gunzip-maybe";
+import path from "path";
 import tar from "tar-stream";
-import getNPMTarballURL from "get-npm-tarball-url";
-import pMap from "p-map";
-import getStream from "get-stream";
-import HttpAgent from "agentkeepalive";
-import type { Client } from "@gadget-client/typescript-type-cdn";
 
 const agent = new HttpAgent();
 const client = got.extend({
   agent: {
-    http: agent
+    http: agent,
   },
   timeout: {
     connect: 3000,
-    request: 20000
+    request: 20000,
   },
   retry: {
-    limit: 5
-  }
+    limit: 5,
+  },
 });
 
-function stripLeadingDirectory(filepath) {
-  if (typeof filepath !== 'string') {
-    throw new TypeError('Filepath must be a string');
+function stripLeadingDirectory(filepath: string) {
+  if (typeof filepath !== "string") {
+    throw new TypeError("Filepath must be a string");
   }
 
   const pathParts = filepath.split(path.sep);
@@ -38,8 +36,7 @@ function stripLeadingDirectory(filepath) {
 }
 
 export class TypesArtifactBuilder {
-  constructor(readonly packageName: string, readonly packageVersion: string) {
-  }
+  constructor(readonly packageName: string, readonly packageVersion: string) {}
 
   async getTypes(api: Client): Promise<Record<string, string>> {
     const cacheKey = `${this.packageName}@${this.packageVersion}`;
@@ -55,9 +52,9 @@ export class TypesArtifactBuilder {
     return { package: this.packageName, version: this.packageVersion, files: types };
   }
 
-  /** 
-   * Assemble a { [path: string]: string } map of type-relevant files for this package  
-   * 
+  /**
+   * Assemble a { [path: string]: string } map of type-relevant files for this package
+   *
    * Works by downloading the package tarball from NPM and pulling out the .d.ts files as it streams in
    **/
   async buildTypes(): Promise<Record<string, string>> {
@@ -66,14 +63,13 @@ export class TypesArtifactBuilder {
     console.log(`rebuilding types from tarball ${tarballURL}`);
     const tarballStream = client.stream.get(tarballURL);
 
-    const files = {};
-
+    const files: Record<string, string> = {};
 
     await new Promise<void>((resolve, reject) => {
       const extract = tar.extract();
 
-      extract.on('entry', async function(header, stream, next) {
-        stream.on('end', function() {
+      extract.on("entry", async function (header, stream, next) {
+        stream.on("end", function () {
           next(); // ready for next entry
         });
 
@@ -81,12 +77,12 @@ export class TypesArtifactBuilder {
           // all files in the tarball start with a package/ or <package-name>/ prefix
           const fileName = stripLeadingDirectory(header.name);
           if (
-            path.basename(fileName) == 'package.json' ||
-            fileName.endsWith('.d.ts') ||
-            (packagesThatNeedAllTsFiles.has(currentPackageName) && fileName.endsWith('.ts'))
+            path.basename(fileName) == "package.json" ||
+            fileName.endsWith(".d.ts") ||
+            (packagesThatNeedAllTsFiles.has(currentPackageName) && fileName.endsWith(".ts"))
           ) {
             files[fileName] = await getStream(stream);
-          } else if (fileName.endsWith('.json')) {
+          } else if (fileName.endsWith(".json")) {
             files[fileName] = "{}";
             stream.resume();
           } else {
@@ -97,12 +93,12 @@ export class TypesArtifactBuilder {
         }
       });
 
-      extract.on('finish', function() {
+      extract.on("finish", function () {
         resolve();
       });
 
       tarballStream
-        .on('error', (err) => {
+        .on("error", (err) => {
           reject(err);
         })
         .pipe(gunzip())
@@ -115,7 +111,7 @@ export class TypesArtifactBuilder {
   private async saveCacheEntry(api: Client, cacheKey: string, types: any) {
     try {
       await api.internal.cache.create({ cache: { packageVersion: cacheKey, serializedTypes: JSON.stringify(types) } });
-    } catch (error) {
+    } catch (error: any) {
       if (error.code == "GGT_INVALID_RECORD") {
         console.warn("suppressing cache race error -- something else built it already");
       } else {

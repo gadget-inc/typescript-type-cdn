@@ -1,4 +1,4 @@
-import { applyParams, save, ActionOptions, CreateCacheActionContext } from "gadget-server";
+import { ActionOptions, applyParams, CreateCacheActionContext, save } from "gadget-server";
 
 /**
  * @param { CreateCacheActionContext } context
@@ -6,14 +6,14 @@ import { applyParams, save, ActionOptions, CreateCacheActionContext } from "gadg
 export async function run({ params, record, logger, api, connections }) {
   applyParams(params, record);
   await save(record);
-};
+}
 
 /**
  * @param { CreateCacheActionContext } context
  */
 export async function onSuccess({ params, record, logger, api, connections }) {
   // Your logic goes here
-};
+}
 
 /** @type { ActionOptions } */
 export const options = {

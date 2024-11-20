@@ -10,8 +10,7 @@ export const schema: GadgetModel = {
     roles: {
       type: "roleList",
       default: ["Unauthenticated"],
-      storageKey:
-        "ModelField-w8yNr8ZptOSU::FieldStorageEpoch-6PzaZxHSIl2a",
+      storageKey: "ModelField-w8yNr8ZptOSU::FieldStorageEpoch-6PzaZxHSIl2a",
     },
   },
 };
