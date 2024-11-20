@@ -1,6 +1,6 @@
 import type { RouteContext } from "gadget-server";
-import { cacheIfProd } from "../../../../services/caching";
-import { TypesArtifactBuilder } from "../../../../services/TypesArtifactBuilder";
+import { cacheIfProd } from "../../../services/caching";
+import { TypesArtifactBuilder } from "../../../services/TypesArtifactBuilder";
 import { parsePackageVersion } from "../../../utils";
 
 async function route({ request, reply, api }: RouteContext<{ Params: { "*": string } }>) {

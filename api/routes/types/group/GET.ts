@@ -1,7 +1,7 @@
 import type { RouteContext } from "gadget-server";
 import pMap from "p-map";
-import { cacheIfProd } from "../../../../services/caching";
-import { TypesArtifactBuilder } from "../../../../services/TypesArtifactBuilder";
+import { cacheIfProd } from "../../../services/caching";
+import { TypesArtifactBuilder } from "../../../services/TypesArtifactBuilder";
 import { parsePackageVersion } from "../../../utils";
 
 async function route({ request, reply, api, logger }: RouteContext<{ Querystring: { packages: string } }>) {

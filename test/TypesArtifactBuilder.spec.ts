@@ -1,6 +1,6 @@
 import type { Client } from "@gadget-client/typescript-type-cdn";
 import { describe, expect, it } from "vitest";
-import { TypesArtifactBuilder } from "../services/TypesArtifactBuilder";
+import { TypesArtifactBuilder } from "../api/services/TypesArtifactBuilder";
 
 // Mock minimal Gadget client for testing
 const mockGadgetClient = {
