@@ -32,12 +32,14 @@
   "scripts": {
     "build": "NODE_ENV=production vite build",
     "typecheck": "tsc --noEmit",
-    "lint:fix": "prettier --write ."
+    "lint:fix": "prettier --write .",
+    "test": "vitest"
   },
   "devDependencies": {
     "@gadgetinc/prettier-config": "^0.4.0",
     "@types/node": "^20.12.8",
-    "prettier": "^2.8.1"
+    "prettier": "^2.8.1",
+    "vitest": "^2.1.5"
   },
   "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
 }
