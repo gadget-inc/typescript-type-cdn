@@ -1,0 +1,39 @@
+{
+  "name": "typescript-type-cdn",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Internal package for Gadget app Typescript Type Cdn (Development environment)",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@gadget-client/typescript-type-cdn": "link:.gadget/client",
+    "@gadgetinc/react": "^0.18.2",
+    "@types/gunzip-maybe": "^1.4.0",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@types/tar-stream": "^2.2.2",
+    "@vitejs/plugin-react-swc": "3.2.0",
+    "agentkeepalive": "^4.3.0",
+    "fastify-cors": "^6.1.0",
+    "gadget-server": "link:.gadget/server",
+    "get-npm-tarball-url": "^2.0.3",
+    "get-stream": "6.0.1",
+    "got": "^11.0.0",
+    "gunzip-maybe": "^1.4.2",
+    "lodash": "^4.17.21",
+    "p-map": "^4.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tar-stream": "^3.0.0",
+    "typescript": "^4.5.3",
+    "vite": "^5.3.5",
+    "@sentry/node": "^7.17.3",
+    "fastify": "^4.24.2"
+  },
+  "scripts": {
+    "build": "NODE_ENV=production vite build"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.8"
+  },
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610"
+}
