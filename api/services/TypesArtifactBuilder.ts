@@ -79,7 +79,9 @@ export class TypesArtifactBuilder {
           if (
             path.basename(fileName) == "package.json" ||
             fileName.endsWith(".d.ts") ||
-            (packagesThatNeedAllTsFiles.has(currentPackageName) && fileName.endsWith(".ts"))
+            fileName.endsWith(".d.mts") ||
+            fileName.endsWith(".d.cts") ||
+            (packagesThatNeedAllTsFiles.has(currentPackageName) && (fileName.endsWith(".ts") || fileName.endsWith(".mts") || fileName.endsWith(".cts")))
           ) {
             files[fileName] = await getStream(stream);
           } else if (fileName.endsWith(".json")) {

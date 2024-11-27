@@ -7,7 +7,7 @@
   "dependencies": {
     "@fastify/cors": "^9.0.1",
     "@gadget-client/typescript-type-cdn": "link:.gadget/client",
-    "@gadgetinc/react": "^0.18.2",
+    "@gadgetinc/react": "^0.18.3",
     "@sentry/node": "^7.17.3",
     "@types/gunzip-maybe": "^1.4.0",
     "@types/react": "^18.0.28",

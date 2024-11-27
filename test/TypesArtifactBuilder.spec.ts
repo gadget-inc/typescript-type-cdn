@@ -42,6 +42,15 @@ describe("TypesArtifactBuilder", () => {
     expect(dtsFiles.length).toBeGreaterThan(0);
   }, 30000);
 
+  it("should extract .d.mts files from a package", async () => {
+    const builder = new TypesArtifactBuilder("openai", "4.22.0");
+    const result = await builder.buildTypes();
+
+    const dMtsFiles = Object.keys(result).filter((file) => file.endsWith(".d.mts"));
+    console.log(dMtsFiles);
+    expect(dMtsFiles.length).toBeGreaterThan(0);
+  }, 30000);
+
   it("should handle packages that need all TS files", async () => {
     const builder = new TypesArtifactBuilder("@shopify/app-bridge-types", "0.0.1");
     const result = await builder.buildTypes();
