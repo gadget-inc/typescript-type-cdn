@@ -18,11 +18,6 @@ export const permissions: GadgetPermissions = {
       models: {
         cache: {
           read: true,
-          actions: {
-            create: true,
-            delete: true,
-            update: true,
-          },
         },
       },
     },
